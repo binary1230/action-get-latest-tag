@@ -30,3 +30,13 @@ if [ "${latest_tag}" = '' ] && [ "${INPUT_WITH_INITIAL_VERSION}" = 'true' ]; the
 fi
 
 echo "::set-output name=tag::${latest_tag}"
+
+# docker is running as user root.root and created files in .git/ that are owned by root.root
+# change these to the correct user. ehancement: pass in user/group as params if needed.
+# otherwise, later steps that AREN'T run in docker containers will encounter permissions-related failures writing to .git/
+if [ "${INPUT_FIX_PERMISSIONS_AFTER}" = 'true' ]; then
+  user_id=1001   # user='runner'
+  group_id=1001  # group='runner'
+  
+  chown -R $user_id:$group_id ./.git/
+fi
