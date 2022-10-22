@@ -17,7 +17,7 @@ inputs:
   fix_permissions_after:
     description: Docker runs as root user and leaves .git folder with files owned by root. If true, restore permissions back to docker.runner
     required: false
-    default: true
+    default: "true"
 outputs:
   tag:
     description: The latest tag. If no tag exists and `inputs.with_initial_version` == `false`, this value is `''`.
