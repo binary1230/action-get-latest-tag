@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e
+set -ex
 
 git config --global --add safe.directory /github/workspace
 
@@ -35,8 +35,11 @@ echo "::set-output name=tag::${latest_tag}"
 # change these to the correct user. ehancement: pass in user/group as params if needed.
 # otherwise, later steps that AREN'T run in docker containers will encounter permissions-related failures writing to .git/
 if [ "${INPUT_FIX_PERMISSIONS_AFTER}" = 'true' ]; then
+  echo "fixing up .git directory permissions..."
   user_id=1001   # user='runner'
   group_id=1001  # group='runner'
   
   chown -R $user_id:$group_id ./.git/
+else
+  echo "not fixing .git directory permissions."
 fi
