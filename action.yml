@@ -1,7 +1,7 @@
 name: Actions Ecosystem Action Get Latest Tag
 description: Get a latest Git tag.
 author: Actions Ecosystem
-inputs:
+inputs: 
   semver_only:
     description: Whether gets only a tag in the shape of semver. `v` prefix is accepted for tag names.
     required: false
